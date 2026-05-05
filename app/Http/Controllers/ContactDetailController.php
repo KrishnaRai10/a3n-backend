@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreContactDetailRequest;
 use App\Http\Requests\UpdateContactDetailRequest;
+use App\Mail\ContactForm;
 use App\Models\ContactDetail;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 
 class ContactDetailController extends Controller
 {
@@ -41,7 +44,9 @@ class ContactDetailController extends Controller
     {
 
         $contact = ContactDetail::create($request->validated());
-
+        $contact->load('service');
+        Mail::to(config('app.admin_email'))
+        ->queue(new ContactForm($contact));
         return response()->json([
             'success' => true,
             'message' => 'Contact created successfully',

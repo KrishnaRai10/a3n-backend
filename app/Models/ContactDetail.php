@@ -22,4 +22,8 @@ class ContactDetail extends Model
         'budget',
         'service_description',
     ];
+    public function service()
+{
+    return $this->belongsTo(Service::class);
+}
 }
