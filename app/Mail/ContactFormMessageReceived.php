@@ -20,6 +20,7 @@ class ContactFormMessageReceived extends Mailable
      */
     public function __construct(public ContactDetail $contact)
     {
+        $this->contact = $contact;
     }
 
     public function envelope(): Envelope

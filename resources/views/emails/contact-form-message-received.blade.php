@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>New Contact Form Submission</title>
+    <title>Thank You for Contacting A3N</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
         rel="stylesheet" />
     <style>
@@ -351,7 +351,6 @@
 </head>
 
 <body>
-
     <div class="wrapper">
 
         <!-- Topbar -->
@@ -371,62 +370,66 @@
                     <div class="hero-pill-dot"></div>
                     Thank You
                 </div>
-
-                <div class="hero-title">
-                    We've Received<br />
-                    <span>Your Message</span>
-                </div>
-
-                <div class="hero-sub">
-                    Thank you for contacting A3NTech. Our team has successfully received your inquiry and will get back
-                    to you shortly.
-                </div>
+                <div class="hero-title">We've Received<br /><span>Your Message</span></div>
+                <div class="hero-sub">Thank you for contacting A3NTech. Our team has successfully received your inquiry
+                    and will get back
+                    to you shortly.</div>
             </div>
 
-            <!-- Greeting -->
+            <!-- Fields -->
             <div class="fields">
 
-                <div class="field full">
-                    <div class="field-label">Name</div>
-                    <div class="field-value">
-                        {{ $contact->first_name ?? '' }} {{ $contact->last_name ?? '' }}
-                    </div>
+                <div class="field">
+                    <div class="field-label">First Name</div>
+                    <div class="field-value">{{ $contact->first_name ?? '' }}</div>
                 </div>
 
                 <div class="field">
-                    <div class="field-label">Email</div>
-                    <div class="field-value">
-                        <a href="mailto:{{ $contact->email ?? '' }}">
-                            {{ $contact->email ?? '' }}
-                        </a>
-                    </div>
+                    <div class="field-label">Last Name</div>
+                    <div class="field-value">{{ $contact->last_name ?? '' }}</div>
                 </div>
 
                 <div class="field">
-                    <div class="field-label">Service Requested</div>
+                    <div class="field-label">Service Interested</div>
                     <div class="field-value">
                         @if(!empty($contact->service_id))
                             {{ optional($contact->service)->name ?? '' }}
                         @else
-                            <span class="empty">General Inquiry</span>
+                            <span class="empty">Not provided</span>
+                        @endif
+                    </div>
+                </div>
+                <div class="field">
+                    <div class="field-label">Estimated Budget</div>
+                    <div class="field-value">
+                        @if(!empty($contact->budget))
+                            {{ $contact->budget }}
+                        @else
+                            <span class="empty">Not provided</span>
                         @endif
                     </div>
                 </div>
 
                 <div class="field full">
-                    <div class="field-label">Your Message</div>
+                    <div class="field-label">Company</div>
                     <div class="field-value">
-                        @if(!empty($contact->service_description))
-                            {{ $contact->service_description }}
+                        @if(!empty($contact->company))
+                            {{ $contact->company }}
                         @else
-                            <span class="empty">No message provided</span>
+                            <span class="empty">Not provided</span>
                         @endif
                     </div>
                 </div>
 
             </div>
 
-            <!-- Info Box -->
+            <!-- Message -->
+            <div class="message-wrap">
+                <div class="message-box">
+                    <div class="message-label">Message</div>
+                    <div class="message-text">{{ $contact->service_description ?? '' }}</div>
+                </div>
+            </div>
             <div class="message-wrap">
                 <div class="message-box">
                     <div class="message-label">What Happens Next?</div>
@@ -443,11 +446,9 @@
 
         <!-- Caption -->
         <div class="caption">
-            This is an automated confirmation email from A3NTech.<br />
-            Please do not reply directly to this email.<br /><br />
+            This is an automated notification. Do not reply to this email directly.<br />
             © 2026 A3NTech. All rights reserved.
         </div>
-        ```
 
     </div>
 
