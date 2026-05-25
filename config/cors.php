@@ -19,7 +19,7 @@ return [
 
     'allowed_methods' => ['*'],
 
-    'allowed_origins' => ['https://staging.a3n.ae', 'https://a3n.ae'],
+    'allowed_origins' => ['https://staging.a3n.ae', 'https://a3n.ae', 'http://localhost:3000'],
 
     'allowed_origins_patterns' => [],
 
