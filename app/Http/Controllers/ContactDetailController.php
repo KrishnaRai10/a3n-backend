@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Enum\ContactFormType;
 use App\Http\Requests\StoreContactDetailRequest;
 use App\Http\Requests\UpdateContactDetailRequest;
+use App\Mail\ConsultationFormMessageReceived;
 use App\Mail\ContactForm;
 use App\Mail\ContactFormMessageReceived;
 use App\Models\ContactDetail;
@@ -53,7 +54,10 @@ class ContactDetailController extends Controller
         ->queue(new ContactFormMessageReceived($contact));
             }
             else{
-                
+                 Mail::to(config('app.admin_email'))
+        ->queue(new ContactForm($contact));
+        Mail::to($contact->email)
+        ->queue(new ConsultationFormMessageReceived($contact));
             }
 
         return response()->json([

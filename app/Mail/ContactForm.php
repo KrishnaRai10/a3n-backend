@@ -2,6 +2,7 @@
 
 namespace App\Mail;
 
+use App\Enum\ContactFormType;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
@@ -26,22 +27,23 @@ class ContactForm extends Mailable
     /**
      * Get the message envelope.
      */
-    public function envelope(): Envelope
+   public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'New Contact Form Submission',
+            subject: $this->contact->form_type === ContactFormType::CONSULTATION->value
+                ? 'New Consultation Request'
+                : 'New Contact Form Submission',
         );
     }
 
-    /**
-     * Get the message content definition.
-     */
     public function content(): Content
     {
         return new Content(
-            view: 'contact', // real blade file
+            view: $this->contact->form_type === ContactFormType::CONSULTATION->value
+                ? 'emails.consultation'
+                : 'emails.contact',
             with: [
-                'contact' => $this->contact // pass as variable
+                'contact' => $this->contact,
             ],
         );
     }

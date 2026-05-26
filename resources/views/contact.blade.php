@@ -405,38 +405,40 @@
                         @endif
                     </div>
                 </div>
-                <div class="field">
-                    <div class="field-label">Service Interested</div>
-                    <div class="field-value">
-                        @if(!empty($contact->service_id))
-                            {{ optional($contact->service)->name ?? '' }}
-                        @else
-                            <span class="empty">Not provided</span>
-                        @endif
+                @if($contact->form_type === 'contact')
+                    <div class="field">
+                        <div class="field-label">Service Interested</div>
+                        <div class="field-value">
+                            @if(!empty($contact->service_id))
+                                {{ optional($contact->service)->name ?? '' }}
+                            @else
+                                <span class="empty">Not provided</span>
+                            @endif
+                        </div>
                     </div>
-                </div>
-                <div class="field">
-                    <div class="field-label">Estimated Budget</div>
-                    <div class="field-value">
-                        @if(!empty($contact->budget))
-                            {{ $contact->budget }}
-                        @else
-                            <span class="empty">Not provided</span>
-                        @endif
-                    </div>
-                </div>
 
-                <div class="field full">
-                    <div class="field-label">Company</div>
-                    <div class="field-value">
-                        @if(!empty($contact->company))
-                            {{ $contact->company }}
-                        @else
-                            <span class="empty">Not provided</span>
-                        @endif
+                    <div class="field">
+                        <div class="field-label">Estimated Budget</div>
+                        <div class="field-value">
+                            @if(!empty($contact->budget))
+                                {{ $contact->budget }}
+                            @else
+                                <span class="empty">Not provided</span>
+                            @endif
+                        </div>
                     </div>
-                </div>
 
+                    <div class="field full">
+                        <div class="field-label">Company</div>
+                        <div class="field-value">
+                            @if(!empty($contact->company))
+                                {{ $contact->company }}
+                            @else
+                                <span class="empty">Not provided</span>
+                            @endif
+                        </div>
+                    </div>
+                @endif
             </div>
 
             <!-- Message -->
